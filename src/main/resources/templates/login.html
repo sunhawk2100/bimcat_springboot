@@ -1,24 +1,51 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Login</title>
-    <link rel="stylesheet" href="/assets/layui/css/layui.css">
+    <meta charset="UTF-8">
+    <title>登录BIMCAT</title>
+    <link rel="shortcut icon" href=" /favicon.ico" />
+    <link rel="stylesheet" href="/assets/layui/css/layui.css" type="text/css">
+    <script src="/assets/layui/layui.all.js" type="text/javascript"></script>
 </head>
+<style>
+    .father{width:1000px;height:auto;margin:0 auto;}
+    .layui-input{width:300px;line-height:40px;}
+    .login-main{margin-top:100px;margin-left:350px;width:300px;height:400px;/* border:1px solid #e6e6e6; */}
+    .layui-form{margin-top:20px;}
+    .layui-input-inline{margin-top:30px;}
+    button{width:300px;}
+</style>
+
 <body>
-
-<!-- 你的HTML代码 -->
-
-<script src="/assets/layui/layui.js"></script>
-<script>
-    //一般直接写在一个js文件中
-    layui.use(['layer', 'form'], function(){
-        var layer = layui.layer
-            ,form = layui.form;
-
-        layer.msg('Hello World');
-    });
-</script>
+    <div class="father">
+        <div class="login-main">
+            <p style="color:#009688;font-size:25px;text-align:center;">欢迎登陆</p>
+            <form class="layui-form" method="post" action="login">
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" name="name" required lay-verify="required" placeholder="请输入用户名" autocomplete="off">
+                </div>
+                <br>
+                <div class="layui-input-inline">
+                    <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off"
+                           class="layui-input">
+                    <br>
+                    <input type="checkbox" name="isRememberMe" title="记住登陆状态" lay-skin="primary" checked>
+                </div>
+                <br>
+                <div class="layui-input-inline login-btn">
+                    <button lay-submit lay-filter="login" class="layui-btn">登录</button>
+                </div>
+                <hr/>
+            </form>
+            <h3 th:text="${msg}" style="color: red"></h3>
+            <h3 th:text="用户名：admin，密码：789" style="color: red"></h3>
+        </div>
+    </div>
+    <script type="text/javascript">
+        layui.use(['form'], function () {
+            var form = layui.form;
+            form.render();//在最后添加这句代码
+        })
+    </script>
 </body>
 </html>

@@ -51,10 +51,8 @@ public class UserController {
      * 测试thymeleaf
      */
     @RequestMapping("/index")
-    public String testThymeleaf(Model model){
-        //把数据存入model
-        model.addAttribute("name", "niuge");
-        //返回test.html
+    public String index(){
+        //返回index.html
         return "index";
     }
 
