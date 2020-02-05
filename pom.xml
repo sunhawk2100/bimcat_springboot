@@ -11,6 +11,7 @@
     <groupId>com.niuge</groupId>
     <artifactId>bimcat</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
     <name>bimcat</name>
     <description>Show BIM</description>
 
@@ -85,6 +86,7 @@
     </dependencies>
 
     <build>
+        <finalName>bimcat</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
