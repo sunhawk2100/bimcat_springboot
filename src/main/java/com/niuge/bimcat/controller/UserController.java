@@ -56,6 +56,12 @@ public class UserController {
         return "index";
     }
 
+    @RequestMapping("/cloth")
+    public String cloth(){
+        //返回index.html
+        return "cloth";
+    }
+
     /**
      * 登录逻辑处理
      */
