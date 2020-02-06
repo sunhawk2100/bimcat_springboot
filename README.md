@@ -1,6 +1,9 @@
 # bimcat_springboot
 BIM轻量化的后端，采用Springboot技术。
 
+# 项目展示网址
+http://106.53.22.84:8088/bimcat
+
 # 关键技术
 1、用户登陆及角色管理采用shiro
 
@@ -17,3 +20,4 @@ BIM轻量化的后端，采用Springboot技术。
 7、用的是springboot框架
 
 8、采用了themlef模板引擎，用layui做后端UI界面
+
