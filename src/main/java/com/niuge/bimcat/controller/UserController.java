@@ -102,5 +102,9 @@ public class UserController {
             model.addAttribute("msg", "密码错误");
             return "login";
         }
+        catch (Exception e){
+            model.addAttribute("msg", "未知错误，请联系管理员！");
+            return "login";
+        }
     }
 }

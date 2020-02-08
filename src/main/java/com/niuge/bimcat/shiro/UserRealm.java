@@ -9,6 +9,7 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class UserRealm extends AuthorizingRealm {
@@ -52,6 +53,8 @@ public class UserRealm extends AuthorizingRealm {
         UsernamePasswordToken token = (UsernamePasswordToken)arg0;
 
         User user = userSerivce.findByName(token.getUsername());
+        // 颜值加密的颜，可以用用户名
+        ByteSource credentialsSalt = ByteSource.Util.bytes(token.getUsername());
 
         if(user==null){
             //用户名不存在
@@ -59,7 +62,7 @@ public class UserRealm extends AuthorizingRealm {
         }
 
         //2.判断密码
-        return new SimpleAuthenticationInfo(user,user.getPassword(),"");
+        return new SimpleAuthenticationInfo(user,user.getPassword(),credentialsSalt,this.getName());
     }
 
 }
