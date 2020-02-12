@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true" scanPeriod="10 seconds" debug="false">
+<!-- set env -->
+<property name="LOGDROOT" value="./../webapps/bimcat/logs"/><!--tomcat目录-->
+<property name="APP_NAME" value="bimcat"/><!--项目名称-->
+<!--日志路径-->
+<property name="DEBUG_LOG_PATH" value="${LOGDROOT}/logs/${APP_NAME}_debug"/>
+<property name="INFO_LOG_PATH" value="${LOGDROOT}/logs/${APP_NAME}_info"/>
+<property name="WARN_LOG_PATH" value="${LOGDROOT}/logs/${APP_NAME}_warn"/>
+<property name="ERROR_LOG_PATH" value="${LOGDROOT}/logs/${APP_NAME}_error"/>
+<property name="DAY_LOG_PATH" value="${LOGDROOT}/logs/${APP_NAME}"/>
+<!--日志输出格式-->
+<!--    <property name="LOG_PATTERN_CONSOLE"-->
+<!--              value="[%d{yyyy-MM-dd HH:mm:ss.SSS} %5p %c:%L] [%thread] [%X{traceId}] %m%n"/>-->
+<property name="LOG_PATTERN_CONSOLE"
+value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+<property name="LOG_PATTERN_FILE"
+value="[%d{yyyy-MM-dd HH:mm:ss.SSS} %5p %c:%L] [%thread] [%X{traceId}] %m%n"/>
+<!--可选节点，控制保留的归档文件的最大数量，超出数量就删除旧文件，假设设置每个月滚动，删除之前的旧文件-->
+<property name="MAXHISTORY" value="30"/>
+<!--设置日志存储最大值-->
+<property name="MAXFILESIZE" value="500MB"/>
+
+<!-- 性能相关 -->
+<property name="PERF_LOG_PATH" value="${LOGDROOT}/logs/${APP_NAME}_perf"/>
+
+<!-- set context name -->
+<contextName>${APP_NAME}</contextName>
+
+<!-- console -->
+<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+<encoder charset="UTF-8">
+<pattern>${LOG_PATTERN_CONSOLE}</pattern>
+</encoder>
+</appender>
+
+<!-- debug level -->
+<appender name="debug"
+class="ch.qos.logback.core.rolling.RollingFileAppender">
+<!-- file name -->
+<File>${DEBUG_LOG_PATH}.log</File>
+<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+<!--output file name -->
+<fileNamePattern>${DEBUG_LOG_PATH}.%d{yyyy-MM-dd}.%i.log
+</fileNamePattern>
+<!-- MAXHISTORY days old files will be delete -->
+<maxHistory>${MAXHISTORY}</maxHistory>
+<timeBasedFileNamingAndTriggeringPolicy
+class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+<maxFileSize>${MAXFILESIZE}</maxFileSize>
+</timeBasedFileNamingAndTriggeringPolicy>
+</rollingPolicy>
+<encoder charset="UTF-8">
+<pattern>${LOG_PATTERN_FILE}</pattern>
+</encoder>
+<filter class="ch.qos.logback.classic.filter.LevelFilter">
+<level>DEBUG</level>
+<onMatch>ACCEPT</onMatch>
+<onMismatch>DENY</onMismatch>
+</filter>
+</appender>
+
+<!-- info level -->
+<appender name="info"
+class="ch.qos.logback.core.rolling.RollingFileAppender">
+<File>${INFO_LOG_PATH}.log</File>
+<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+<fileNamePattern>${INFO_LOG_PATH}.%d{yyyy-MM-dd}.%i.log
+</fileNamePattern>
+<maxHistory>${MAXHISTORY}</maxHistory>
+<timeBasedFileNamingAndTriggeringPolicy
+class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+<maxFileSize>${MAXFILESIZE}</maxFileSize>
+</timeBasedFileNamingAndTriggeringPolicy>
+</rollingPolicy>
+<encoder charset="UTF-8">
+<pattern>${LOG_PATTERN_FILE}</pattern>
+</encoder>
+<filter class="ch.qos.logback.classic.filter.LevelFilter">
+<level>INFO</level>
+<onMatch>ACCEPT</onMatch>
+<onMismatch>DENY</onMismatch>
+</filter>
+</appender>
+
+<!-- warn level -->
+<appender name="warn"
+class="ch.qos.logback.core.rolling.RollingFileAppender">
+<File>${WARN_LOG_PATH}.log</File>
+<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+<fileNamePattern>${WARN_LOG_PATH}.%d{yyyy-MM-dd}.%i.log
+</fileNamePattern>
+<maxHistory>${MAXHISTORY}</maxHistory>
+<timeBasedFileNamingAndTriggeringPolicy
+class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+<maxFileSize>${MAXFILESIZE}</maxFileSize>
+</timeBasedFileNamingAndTriggeringPolicy>
+</rollingPolicy>
+<encoder charset="UTF-8">
+<pattern>${LOG_PATTERN_FILE}</pattern>
+</encoder>
+<filter class="ch.qos.logback.classic.filter.LevelFilter">
+<level>WARN</level>
+<onMatch>ACCEPT</onMatch>
+<onMismatch>DENY</onMismatch>
+</filter>
+</appender>
+
+<!-- error level -->
+<appender name="error"
+class="ch.qos.logback.core.rolling.RollingFileAppender">
+<File>${ERROR_LOG_PATH}.log</File>
+<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+<fileNamePattern>${ERROR_LOG_PATH}.%d{yyyy-MM-dd}.%i.log
+</fileNamePattern>
+<maxHistory>${MAXHISTORY}</maxHistory>
+<timeBasedFileNamingAndTriggeringPolicy
+class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+<maxFileSize>${MAXFILESIZE}</maxFileSize>
+</timeBasedFileNamingAndTriggeringPolicy>
+</rollingPolicy>
+<encoder charset="UTF-8">
+<pattern>${LOG_PATTERN_FILE}</pattern>
+</encoder>
+<filter class="ch.qos.logback.classic.filter.LevelFilter">
+<level>ERROR</level>
+<onMatch>ACCEPT</onMatch>
+<onMismatch>DENY</onMismatch>
+</filter>
+</appender>
+
+<!-- 每日输出 -->
+<appender name="day_log"
+class="ch.qos.logback.core.rolling.RollingFileAppender">
+<File>${DAY_LOG_PATH}.log</File>
+<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+<fileNamePattern>${DAY_LOG_PATH}.%d{yyyy-MM-dd}.%i.log
+</fileNamePattern>
+<maxHistory>${MAXHISTORY}</maxHistory>
+<timeBasedFileNamingAndTriggeringPolicy
+class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+<maxFileSize>${MAXFILESIZE}</maxFileSize>
+</timeBasedFileNamingAndTriggeringPolicy>
+</rollingPolicy>
+<encoder charset="UTF-8">
+<pattern>${LOG_PATTERN_FILE}</pattern>
+</encoder>
+</appender>
+
+<!-- 异步输出 -->
+<appender name="dayLogAsyncAppender" class="ch.qos.logback.classic.AsyncAppender">
+<includeCallerData>true</includeCallerData>
+<!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
+<discardingThreshold>0</discardingThreshold>
+<!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
+<queueSize>512</queueSize>
+<appender-ref ref="day_log"/>
+</appender>
+
+<!-- spring -->
+<logger name="org.springframework" level="info"/>
+
+<!--    <logger name="com.mongodb" level="info" additivity="false">-->
+<!--        <appender-ref ref="error"/>-->
+<!--        <appender-ref ref="warn"/>-->
+<!--        <appender-ref ref="console"/>-->
+<!--        <appender-ref ref="info"/>-->
+<!--    </logger>-->
+
+<!-- root -->
+<root level="info">
+<appender-ref ref="info"/>
+<appender-ref ref="warn"/>
+<appender-ref ref="error"/>
+<appender-ref ref="STDOUT"/>
+</root>
+</configuration>

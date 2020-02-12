@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <title>登录BIMCAT</title>
     <link rel="shortcut icon" href=" favicon.ico" />
+    <script src="jquery/jquery-3.4.1.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="assets/layui/css/layui.css" type="text/css">
     <script src="assets/layui/layui.all.js" type="text/javascript"></script>
 </head>
 <style>
     .father{width:1000px;height:auto;margin:0 auto;}
     .layui-input{width:300px;line-height:40px;}
+    .layui-input2{width:100px;line-height:40px;}
     .login-main{margin-top:100px;margin-left:350px;width:300px;height:400px;/* border:1px solid #e6e6e6; */}
     .layui-form{margin-top:20px;}
     .layui-input-inline{margin-top:30px;}
@@ -24,14 +26,20 @@
                 <div class="layui-input-inline">
                     <input type="text" class="layui-input" name="name" required lay-verify="required" placeholder="请输入用户名" autocomplete="off">
                 </div>
-                <br>
                 <div class="layui-input-inline">
                     <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off"
                            class="layui-input">
-                    <br>
-                    <input type="checkbox" name="isRememberMe" title="记住登陆状态" lay-skin="primary" checked>
+                </div>
+                <br/>
+                <br/>
+                <div>
+                    <input type="text" class="layui-input2" name="randomcode" required lay-verify="required" placeholder="请输入验证码" autocomplete="off">
+                    <img id="validateCodeImg" th:src="@{/validateCode}"/>
                 </div>
                 <br>
+                <div>
+                    <input type="checkbox" name="isRememberMe" title="记住登陆状态" lay-skin="primary" checked>
+                </div>
                 <div class="layui-input-inline login-btn">
                     <button lay-submit lay-filter="login" class="layui-btn">登录</button>
                 </div>
@@ -45,6 +53,10 @@
         layui.use(['form'], function () {
             var form = layui.form;
             form.render();//在最后添加这句代码，这样checkbox才会显示
+        })
+        $("#validateCodeImg").click(function(){
+            var pathName = window.document.location.pathname;
+            $("#validateCodeImg").attr("src",pathName.substring(0, pathName.substr(1).indexOf('/') + 1) + "/validateCode?data=" + new Date() + Math.floor(Math.random()*24));
         })
     </script>
 </body>

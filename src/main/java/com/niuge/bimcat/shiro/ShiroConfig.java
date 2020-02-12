@@ -50,6 +50,7 @@ public class ShiroConfig {
         filterMap.put("/index", "user");
         //放行login.html页面
         filterMap.put("/login", "anon");
+        filterMap.put("/validateCode", "anon");
 
         //授权过滤器
         //注意：当前授权拦截后，shiro会自动跳转到未授权页面

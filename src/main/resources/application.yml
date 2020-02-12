@@ -25,7 +25,7 @@ spring:
 #热更新的时候，页面也更新
   thymeleaf:
     cache: false
-
+#多文件上传
   servlet:
     multipart:
       enabled: true
