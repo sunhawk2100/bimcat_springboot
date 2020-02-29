@@ -15,7 +15,7 @@ class BimcatApplicationTests {
     @Test
     void showpassword(){
         //盐值用的用的是对用户名的加密（测试用的"admin"）
-        ByteSource credentialsSalt01 = ByteSource.Util.bytes("zhangsan");
+        ByteSource credentialsSalt01 = ByteSource.Util.bytes("guest");
         Object salt = null;//盐值
         Object credential = "123";//密码
         String hashAlgorithmName = "MD5";//加密方式
